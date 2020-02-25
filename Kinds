@@ -1,35 +1,94 @@
-public class ExceptionExample2
-{
-    public static void main(String[] args)
-    {
-        System.out.println("Program starts");
+package com.javarush.task.task14.task1419;
 
-        try
-        {
-            System.out.println("Before method1 calling");
-            method1();
-            System.out.println("After method1 calling. Never will be shown ");
-        }
-        catch (NullPointerException e)
-        {
-           System.out.println("Reference is null. Exception has been caught");
-        }
-        catch (ArithmeticException e)
-        {
-            System.out.println("Division by zero. Exception has been caught");
-        }
-        catch (Exception e)
-        {
-            System.out.println("Any other errors. Exception has been caught");
-        }
+import java.io.IOException;
+import java.nio.file.FileSystemException;
+import java.rmi.NotBoundException;
+import java.rmi.activation.ActivationException;
 
-        System.out.println("Program is still running");
+import java.util.ArrayList;
+import java.util.List;
+
+/* 
+Нашествие исключений
+*/
+
+public class Solution {
+    public static List<Exception> exceptions = new ArrayList<Exception>();
+
+    public static void main(String[] args) {
+        initExceptions();
+
+       for (Exception exception : exceptions) {
+           System.out.println(exception);
+
+       }
     }
 
-    public static void method1()
-    {
-        int a = 100;
-        int b = 0;
-        System.out.println(a / b);
+    private static void initExceptions() {   //the first exception
+        try {
+            float i = 1 / 0;
+
+        }
+        catch (ArithmeticException  e) {
+            exceptions.add(e);
+        }
+        try{
+            int[] arr = new int[1];
+            arr[2]=3;
+        }
+        catch (ArrayIndexOutOfBoundsException  e) {
+            exceptions.add(e);
+        }
+        try{
+            String g=null;
+            System.out.println(g.toString());
+        }
+        catch (NullPointerException  e) {
+            exceptions.add(e);
+        }
+        try{
+            ArrayList<Integer> bound = new ArrayList<>();
+            bound.add(23);
+            bound.add(23);
+            System.out.println(bound.get(2));
+        }
+
+        catch (IndexOutOfBoundsException  e) {
+            exceptions.add(e);
+        }
+        try{Integer aIntegerObj = new Integer("one");}
+        catch (NumberFormatException e) {
+            exceptions.add(e);
+        }
+        try{
+            Object x[] = new String[3];
+            x[0] = new Integer(0);
+        }
+        catch (ArrayStoreException  e) {
+            exceptions.add(e);
+        }
+        try{
+            Object i = Integer.valueOf(42);
+            String s = (String)i;
+        }
+        catch (ClassCastException  e) {
+            exceptions.add(e);
+        }
+        try{throw new IllegalArgumentException( );}
+        catch (IllegalArgumentException   e) {
+            exceptions.add(e);
+        }
+        try{throw new NegativeArraySizeException();}
+        catch (NegativeArraySizeException     e) {
+            exceptions.add(e);
+        }
+        try{throw new UnsupportedOperationException();}
+
+        catch (UnsupportedOperationException     e) {
+            exceptions.add(e);
+        }
+
+              //напишите тут ваш код
+
     }
 }
